@@ -11,14 +11,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class UserDtoRegister implements Serializable {
 
-    /** Nombre de usuario **/
-    private String nombre;
+        /** Nombre de usuario **/
+        private String nombre;
 
-    /** Apellidos del usuario **/
-    private String apellidos;
+        /** Apellidos del usuario **/
+        private String apellidos;
 
-    /** Email del usuario **/
-    private String correo;
+        /** Email del usuario **/
+        private String correo;
 
 
 }
