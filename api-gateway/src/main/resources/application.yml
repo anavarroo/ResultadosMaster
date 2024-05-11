@@ -3,30 +3,35 @@ spring:
     gateway:
       routes:
         - id: ranking-service
-          uri: http://localhost:8081
+          uri: lb://ranking-service
           predicates:
             - Path=/api/v1/ranking/**
           filters:
             - name: AuthenticationFilter
 
         - id: resultados-service
-          uri: http://localhost:8082
+          uri: lb://resultados-service
           predicates:
             - Path=/api/v1/partidos/**
           filters:
             - name: AuthenticationFilter
 
         - id: resultados-service
-          uri: http://localhost:8082
+          uri: lb://resultados-service
           predicates:
             - Path=/api/v1/torneos/**
           filters:
             - name: AuthenticationFilter
 
         - id: register-service
-          uri: http://localhost:8083
+          uri: lb://register-service
           predicates:
             - Path=/auth/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
 
 
 
