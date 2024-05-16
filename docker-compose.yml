@@ -1,4 +1,4 @@
-version: '4'
+version: '3.3'
 
 services:
   discoveryserver:
@@ -9,6 +9,9 @@ services:
       - 8761:8761
     networks:
       - resultadosmasternt
+    environment:
+      eureka.instance.hostname: eureka-server
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
 
   api-gateway:
     container_name: api-gateway
@@ -20,6 +23,9 @@ services:
       - discoveryserver
     networks:
       - resultadosmasternt
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+
 
   register-db:
     container_name: register-db
