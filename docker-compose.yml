@@ -3,6 +3,7 @@ version: '3.3'
 services:
   discoveryserver:
     container_name: discoveryserver
+    restart: always
     build: .
     image: discoveryserver
     ports:
@@ -10,8 +11,8 @@ services:
     networks:
       - resultadosmasternt
     environment:
-      eureka.instance.hostname: eureka-server
-      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+      eureka.instance.hostname: discoveryserver
+      eureka.client.serviceUrl.defaultZone: http://discoveryserver:8761/eureka
 
   api-gateway:
     container_name: api-gateway
@@ -24,7 +25,7 @@ services:
     networks:
       - resultadosmasternt
     environment:
-      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+      eureka.client.serviceUrl.defaultZone: http://discoveryserver:8761/eureka
 
 
   register-db:
@@ -39,6 +40,7 @@ services:
       - 3307:3306
     networks:
       - resultadosmasternt
+
 
   resultados-db:
     container_name: resultados-db
@@ -77,12 +79,14 @@ services:
       - DATABASE_URL=jdbc:mysql://register-db:3306/usuarios?autoReconnect=true&useSSL=false
       - DATABASE_USERNAME=root
       - DATABASE_PASSWORD=root
+
     depends_on:
       - register-db
       - discoveryserver
       - api-gateway
     networks:
       - resultadosmasternt
+
 
   ranking-service:
     container_name: ranking-service
