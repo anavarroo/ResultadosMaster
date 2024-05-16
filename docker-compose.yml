@@ -1,0 +1,129 @@
+version: '3.3'
+
+services:
+  discoveryserver:
+    container_name: discoveryserver
+    restart: always
+    build: .
+    image: discoveryserver
+    ports:
+      - 8761:8761
+    networks:
+      - resultadosmasternt
+    environment:
+      eureka.instance.hostname: discoveryserver
+      eureka.client.serviceUrl.defaultZone: http://discoveryserver:8761/eureka
+
+  api-gateway:
+    container_name: api-gateway
+    build: .
+    image: api-gateway
+    ports:
+      - 8084:8084
+    depends_on:
+      - discoveryserver
+    networks:
+      - resultadosmasternt
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://discoveryserver:8761/eureka
+
+
+  register-db:
+    container_name: register-db
+    image: mysql:5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: usuarios
+      PMA_HOST: mysql
+    ports:
+      - 3307:3306
+    networks:
+      - resultadosmasternt
+
+
+  resultados-db:
+    container_name: resultados-db
+    image: mysql:5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: resultadosmaster
+      PMA_HOST: mysql
+    ports:
+      - 3308:3306
+    networks:
+      - resultadosmasternt
+
+  ranking-db:
+    container_name: ranking-db
+    image: mysql:5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: top50players
+      PMA_HOST: mysql
+    ports:
+      - 3309:3306
+    networks:
+      - resultadosmasternt
+
+  register-service:
+    container_name: register-service
+    build: .
+    image: register-service
+    ports:
+      - 8083:8083
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:mysql://register-db:3306/usuarios?autoReconnect=true&useSSL=false
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=root
+
+    depends_on:
+      - register-db
+      - discoveryserver
+      - api-gateway
+    networks:
+      - resultadosmasternt
+
+
+  ranking-service:
+    container_name: ranking-service
+    build: .
+    image: ranking-service
+    ports:
+      - 8081:8081
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:mysql://ranking-db:3306/top50players?autoReconnect=true&useSSL=false
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=root
+    depends_on:
+      - ranking-db
+      - discoveryserver
+      - api-gateway
+    networks:
+      - resultadosmasternt
+
+  resultados-service:
+    container_name: resultados-service
+    build: .
+    image: resultados-service
+    ports:
+      - 8082:8082
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DATABASE_URL=jdbc:mysql://resultados-db:3306/resultadosmaster?autoReconnect=true&useSSL=false
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=root
+    depends_on:
+      - resultados-db
+      - discoveryserver
+      - api-gateway
+    networks:
+      - resultadosmasternt
+
+networks:
+  resultadosmasternt:
+    driver: bridge
