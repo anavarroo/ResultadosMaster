@@ -4,8 +4,7 @@ services:
   discoveryserver:
     container_name: discoveryserver
     restart: always
-    build: .
-    image: discoveryserver
+    image: anavarrooo/resultadosmaster:discoveryserver
     ports:
       - 8761:8761
     networks:
@@ -16,8 +15,7 @@ services:
 
   api-gateway:
     container_name: api-gateway
-    build: .
-    image: api-gateway
+    image: anavarrooo/resultadosmaster:api-gateway
     ports:
       - 8084:8084
     depends_on:
@@ -67,8 +65,7 @@ services:
 
   register-service:
     container_name: register-service
-    build: .
-    image: register-service
+    image: anavarrooo/resultadosmaster:register-service
     ports:
       - 8083:8083
     environment:
@@ -87,8 +84,7 @@ services:
 
   ranking-service:
     container_name: ranking-service
-    build: .
-    image: ranking-service
+    image: anavarrooo/resultadosmaster:ranking-service
     ports:
       - 8081:8081
     environment:
@@ -105,8 +101,7 @@ services:
 
   resultados-service:
     container_name: resultados-service
-    build: .
-    image: resultados-service
+    image: anavarrooo/resultadosmaster:resultados-service
     ports:
       - 8082:8082
     environment:
