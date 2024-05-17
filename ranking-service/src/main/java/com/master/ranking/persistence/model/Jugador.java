@@ -12,25 +12,28 @@ public class Jugador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
-    @Column(nullable = false)
+
+    @Column(name = "apellidos", nullable = false)
     private String apellidos;
 
-    @Column(nullable = false)
+    @Column(name = "numero_ranking", nullable = false)
     private Long numero_ranking;
 
-    @Column(nullable = false)
+    @Column(name = "puntos", nullable = false)
     private String puntos;
-    @Column(nullable = false)
+
+    @Column(name = "imagen_url", nullable = false)
     private String imagen_url;
 
-    @Column(nullable = false)
+    @Column(name = "bandera_url", nullable = false)
     private String bandera_url;
 
-    @Column(nullable = false)
+    @Column(name = "genero")
     private String genero;
 
 }
