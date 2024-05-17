@@ -15,12 +15,12 @@ public class Torneo {
     private Long id;
 
 
-    @Column(nullable = false)
+    @Column(name = "ciudad", nullable = false)
     private String ciudad;
 
-    @Column(nullable = false)
+    @Column(name = "tipo", nullable = false)
     private String tipo;
 
-    @Column(nullable = false)
+    @Column(name = "fechatorneo", nullable = false)
     private String fechatorneo;
 }
