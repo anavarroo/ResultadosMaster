@@ -24,9 +24,6 @@ services:
       - discoveryserver
     networks:
       - resultadosmasternt
-    environment:
-      eureka.client.serviceUrl.defaultZone: http://discoveryserver:8761/eureka
-
 
   register-db:
     container_name: register-db

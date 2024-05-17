@@ -17,19 +17,19 @@ public class Partido {
     @Column(name = "torneo_Id")
     private Long torneoId;
 
-    @Column(nullable = false)
+    @Column(name = "ronda", nullable = false)
     private String ronda;
 
-    @Column(nullable = false)
+    @Column(name = "fecha_hora", nullable = false)
     private String fecha_hora;
 
-    @Column(nullable = false)
+    @Column(name = "pareja_1", nullable = false)
     private String pareja_1;
 
-    @Column(nullable = false)
+    @Column(name = "pareja_2", nullable = false)
     private String pareja_2;
 
-    @Column(nullable = false)
+    @Column(name = "resultado", nullable = false)
     private String resultado;
 
 
