@@ -23,46 +23,6 @@ services:
     networks:
       - resultadosmasternt
 
-  register-db:
-    container_name: register-db
-    image: mysql:5
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: usuarios
-      PMA_HOST: mysql
-    ports:
-      - 3307:3306
-    networks:
-      - resultadosmasternt
-
-
-  resultados-db:
-    container_name: resultados-db
-    image: mysql:5
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: resultadosmaster
-      PMA_HOST: mysql
-    ports:
-      - 3308:3306
-    networks:
-      - resultadosmasternt
-
-  ranking-db:
-    container_name: ranking-db
-    image: mysql:5
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: top50players
-      PMA_HOST: mysql
-    ports:
-      - 3309:3306
-    networks:
-      - resultadosmasternt
-
   register-service:
     container_name: register-service
     image: anavarrooo/resultadosmaster:register-service
@@ -70,14 +30,11 @@ services:
       - 8083:8083
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - DATABASE_URL=jdbc:mysql://register-db:3306/usuarios?autoReconnect=true&useSSL=false
-      - DATABASE_USERNAME=root
-      - DATABASE_PASSWORD=root
-    depends_on:
-      - register-db
+      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/usuarios?autoReconnect=true&useSSL=false
+      - DATABASE_USERNAME=resultadosmaster
+      - DATABASE_PASSWORD=Tolito1234
     networks:
       - resultadosmasternt
-
 
   ranking-service:
     container_name: ranking-service
@@ -86,7 +43,7 @@ services:
       - 8081:8081
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/top50players?useSSL=false
+      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/top50players?autoReconnect=true&useSSL=false
       - DATABASE_USERNAME=resultadosmaster
       - DATABASE_PASSWORD=Tolito1234
     networks:
@@ -102,8 +59,6 @@ services:
       - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/resultadosmaster?autoReconnect=true&useSSL=false
       - DATABASE_USERNAME=resultadosmaster
       - DATABASE_PASSWORD=Tolito1234
-    depends_on:
-      - resultados-db
     networks:
       - resultadosmasternt
 
