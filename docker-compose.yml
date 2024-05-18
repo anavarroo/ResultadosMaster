@@ -86,11 +86,9 @@ services:
       - 8081:8081
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/top50players?autoReconnect=true&useSSL=false
+      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/top50players?useSSL=false
       - DATABASE_USERNAME=resultadosmaster
       - DATABASE_PASSWORD=Tolito1234
-    depends_on:
-      - ranking-db
     networks:
       - resultadosmasternt
 
