@@ -73,7 +73,6 @@ services:
       - DATABASE_URL=jdbc:mysql://register-db:3306/usuarios?autoReconnect=true&useSSL=false
       - DATABASE_USERNAME=root
       - DATABASE_PASSWORD=root
-
     depends_on:
       - register-db
     networks:
