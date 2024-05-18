@@ -30,7 +30,7 @@ services:
       - 8083:8083
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/usuarios?useSSL=false
+      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/usuarios?useSSL=true
       - DATABASE_USERNAME=resultadosmaster
       - DATABASE_PASSWORD=Tolito1234
     networks:
@@ -43,7 +43,7 @@ services:
       - 8081:8081
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/top50players?autoReconnect=true&useSSL=false
+      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/top50players?autoReconnect=true&useSSL=true
       - DATABASE_USERNAME=resultadosmaster
       - DATABASE_PASSWORD=Tolito1234
     networks:
@@ -56,7 +56,7 @@ services:
       - 8082:8082
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/resultadosmaster?autoReconnect=true&useSSL=false
+      - DATABASE_URL=jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/resultadosmaster?autoReconnect=true&useSSL=true
       - DATABASE_USERNAME=resultadosmaster
       - DATABASE_PASSWORD=Tolito1234
     networks:
