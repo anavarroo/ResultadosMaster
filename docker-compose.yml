@@ -76,8 +76,6 @@ services:
 
     depends_on:
       - register-db
-      - discoveryserver
-      - api-gateway
     networks:
       - resultadosmasternt
 
@@ -94,8 +92,6 @@ services:
       - DATABASE_PASSWORD=root
     depends_on:
       - ranking-db
-      - discoveryserver
-      - api-gateway
     networks:
       - resultadosmasternt
 
@@ -111,8 +107,6 @@ services:
       - DATABASE_PASSWORD=root
     depends_on:
       - resultados-db
-      - discoveryserver
-      - api-gateway
     networks:
       - resultadosmasternt
 
