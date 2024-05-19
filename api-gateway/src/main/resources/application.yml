@@ -3,28 +3,28 @@ spring:
     gateway:
       routes:
         - id: ranking-service
-          uri: lb://ranking-service
+          uri: http://nlb-service.resultados-space.svc.cluster.local:8081
           predicates:
             - Path=/api/v1/ranking/**
           filters:
             - name: AuthenticationFilter
 
         - id: resultados-service
-          uri: lb://resultados-service
+          uri: http://nlb-service.resultados-space.svc.cluster.local:8082
           predicates:
             - Path=/api/v1/partidos/**
           filters:
             - name: AuthenticationFilter
 
         - id: resultados-service
-          uri: lb://resultados-service
+          uri: http://nlb-service.resultados-space.svc.cluster.local:8082
           predicates:
             - Path=/api/v1/torneos/**
           filters:
             - name: AuthenticationFilter
 
         - id: register-service
-          uri: lb://register-service
+          uri: http://nlb-service.resultados-space.svc.cluster.local:8083
           predicates:
             - Path=/auth/**
 
