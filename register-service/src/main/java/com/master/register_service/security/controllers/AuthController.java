@@ -46,8 +46,14 @@ public class AuthController {
      */
     @PostMapping(value = "/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
-        return ResponseEntity.ok(authMngm.login(request));
+        AuthResponse authResponse = authMngm.login(request);
+
+        // Imprimir el token en la consola
+        System.out.println("Token generado en el backend: " + authResponse.getToken());
+
+        return ResponseEntity.ok(authResponse);
     }
+
 
 
 

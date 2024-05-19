@@ -1,6 +1,5 @@
 package com.master.register_service.security.services;
 
-import com.master.register_service.exceptionhandler.UsuarioNoHabilitadoExeption;
 import com.master.register_service.persistence.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -74,6 +74,8 @@ public class AuthServiceImpl implements AuthServiceI {
                 .build();
     }
 
+
+
     /**
      * Convierte un objeto User en un objeto UserDto.
      *

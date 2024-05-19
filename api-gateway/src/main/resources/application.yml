@@ -28,6 +28,11 @@ spring:
           predicates:
             - Path=/auth/**
 
+        - id: register-service
+          uri: lb://register-service
+          predicates:
+            - Path=/checkUserExists
+
 eureka:
   client:
     service-url:
