@@ -1,5 +1,3 @@
-# Despliegue servicios
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,7 +16,7 @@ spec:
     spec:
       containers:
         - name: discoveryserver
-          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:discoveryserver
+          image: anavarrooo/resultadosmaster:discoveryserver
           ports:
             - containerPort: 8761
           env:
@@ -27,7 +25,7 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
         - name: api-gateway
-          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:api-gateway
+          image: anavarrooo/resultadosmaster:api-gateway
           ports:
             - containerPort: 8084
           env:
@@ -36,7 +34,7 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
         - name: register-service
-          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:register-service
+          image: anavarrooo/resultadosmaster:register-service
           ports:
             - containerPort: 8083
           env:
@@ -51,7 +49,7 @@ spec:
             - name: DATABASE_PASSWORD
               value: Tolito1234
         - name: ranking-service
-          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:ranking-service
+          image: anavarrooo/resultadosmaster:ranking-service
           ports:
             - containerPort: 8081
           env:
@@ -66,7 +64,7 @@ spec:
             - name: DATABASE_PASSWORD
               value: Tolito1234
         - name: resultados-service
-          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:resultados-service
+          image: anavarrooo/resultadosmaster:resultados-service
           ports:
             - containerPort: 8082
           env:
