@@ -59,4 +59,38 @@
             docker build -t anavarrooo/resultadosmaster:resultados-service .
             docker push anavarrooo/resultadosmaster:resultados-service
 
+        # Build and Push Images to AZURE
+        - name: Login Azure
+          run: echo "${{ secrets.AZURE_REPO_PASSWORD }}" | docker login resultadosmasterrepository.azurecr.io -u resultadosmasterrepository --password-stdin
+
+        - name: Build and push Docker images for discoveryserver to azure
+          run: |
+            cd discoveryserver
+            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:discoveryserver .
+            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:discoveryserver
+
+        - name: Build and push Docker images for api-gateway to azure
+          run: |
+            cd api-gateway
+            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:api-gateway .
+            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:api-gateway
+
+        - name: Build and push Docker images for ranking-service to azure
+          run: |
+            cd ranking-service
+            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:ranking-service .
+            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:ranking-service
+
+        - name: Build and push Docker images for register-service to azure
+          run: |
+            cd register-service
+            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:register-service .
+            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:register-service
+
+        - name: Build and push Docker images for resultados-service to azure
+          run: |
+            cd resultados-service
+            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:resultados-service .
+            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:resultados-service
+
      

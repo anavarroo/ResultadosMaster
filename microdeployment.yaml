@@ -1,0 +1,82 @@
+# Despliegue servicios
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-services
+  labels:
+    app: micros
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: micros
+  template:
+    metadata:
+      labels:
+        app: micros
+    spec:
+      containers:
+        - name: discoveryserver
+          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:discoveryserver
+          ports:
+            - containerPort: 8761
+          env:
+            - name: AUDIT_API
+              value: http://nlb-service:8761
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+        - name: api-gateway
+          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:api-gateway
+          ports:
+            - containerPort: 8084
+          env:
+            - name: AUDIT_API
+              value: http://nlb-service:8084
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+        - name: register-service
+          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:register-service
+          ports:
+            - containerPort: 8083
+          env:
+            - name: AUDIT_API
+              value: http://nlb-service:8083
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+            - name: DATABASE_URL
+              value: jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/usuarios?useSSL=true
+            - name: DATABASE_USERNAME
+              value: resultadosmaster
+            - name: DATABASE_PASSWORD
+              value: Tolito1234
+        - name: ranking-service
+          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:ranking-service
+          ports:
+            - containerPort: 8081
+          env:
+            - name: AUDIT_API
+              value: http://nlb-service:8081
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+            - name: DATABASE_URL
+              value: jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/top50players?useSSL=true
+            - name: DATABASE_USERNAME
+              value: resultadosmaster
+            - name: DATABASE_PASSWORD
+              value: Tolito1234
+        - name: resultados-service
+          image: resultasdosmasterrepository.azurecr.io/resultadosmaster:resultados-service
+          ports:
+            - containerPort: 8082
+          env:
+            - name: AUDIT_API
+              value: http://nlb-service:8082
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
+            - name: DATABASE_URL
+              value: jdbc:mysql://resultadosmaster-mysql-server.mysql.database.azure.com:3306/resultadosmaster?useSSL=true
+            - name: DATABASE_USERNAME
+              value: resultadosmaster
+            - name: DATABASE_PASSWORD
+              value: Tolito1234
