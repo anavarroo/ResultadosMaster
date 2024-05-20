@@ -28,7 +28,6 @@ public class PartidoServiceImp implements PartidoService {
 
     @Override
     public List<Partido> getPartidosByTorneo(Long torneoId) {
-        // Implementa la lógica para obtener los partidos asociados a un torneo específico
         return partidoRepository.findByTorneoId(torneoId);
     }
 }
