@@ -36,32 +36,32 @@
         - name: Build and push Docker images for discoveryserver
           run: |
             cd discoveryserver
-            docker build -t anavarrooo/resultadosmaster:discoveryserver-v.0.3 .
-            docker push anavarrooo/resultadosmaster:discoveryserver-v.0.3
+            docker build -t anavarrooo/resultadosmaster:discoveryserver-${{ github.sha }} .
+            docker push anavarrooo/resultadosmaster:discoveryserver-${{ github.sha }}
 
         - name: Build and push Docker images for api-gateway
           run: |
             cd api-gateway
-            docker build -t anavarrooo/resultadosmaster:api-gateway-v.0.3 .
-            docker push anavarrooo/resultadosmaster:api-gateway-v.0.3
+            docker build -t anavarrooo/resultadosmaster:api-gateway-${{ github.sha }} .
+            docker push anavarrooo/resultadosmaster:api-gateway-${{ github.sha }}
 
         - name: Build and push Docker images for register-service
           run: |
             cd register-service
-            docker build -t anavarrooo/resultadosmaster:register-service-v.0.3 .
-            docker push anavarrooo/resultadosmaster:register-service-v.0.3
+            docker build -t anavarrooo/resultadosmaster:register-service-${{ github.sha }} .
+            docker push anavarrooo/resultadosmaster:register-service-${{ github.sha }}
 
         - name: Build and push Docker images for ranking-service
           run: |
             cd ranking-service
-            docker build -t anavarrooo/resultadosmaster:ranking-service-v.0.3 .
-            docker push anavarrooo/resultadosmaster:ranking-service-v.0.3
+            docker build -t anavarrooo/resultadosmaster:ranking-service-${{ github.sha }} .
+            docker push anavarrooo/resultadosmaster:ranking-service-${{ github.sha }}
 
         - name: Build and push Docker images for resultados-service
           run: |
             cd resultados-service
-            docker build -t anavarrooo/resultadosmaster:resultados-service-v.0.3 .
-            docker push anavarrooo/resultadosmaster:resultados-service-v.0.3
+            docker build -t anavarrooo/resultadosmaster:resultados-service-${{ github.sha }} .
+            docker push anavarrooo/resultadosmaster:resultados-service-${{ github.sha }}
 
           # Deploy to Kubernetes
         - name: Configure kubectl
