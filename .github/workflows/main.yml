@@ -63,16 +63,7 @@
             docker build -t anavarrooo/resultadosmaster:resultados-service .
             docker push anavarrooo/resultadosmaster:resultados-service
 
-          # Deploy to Kubernetes
-        - name: Configure kubectl
-          uses: azure/k8s-set-context@v1
-          with:
-            kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
-        - name: Apply Kubernetes manifests
-          run: |
-            kubectl apply -f microservices.yaml -n resultados-space
-            kubectl apply -f microdeployment.yaml -n resultados-space
+       
 
         # Build and Push Images to AZURE
       #        - name: Login Azure
