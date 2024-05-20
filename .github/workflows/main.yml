@@ -15,6 +15,12 @@
         - name: Check out the repository
           uses: actions/checkout@v4
 
+        - name: Print repository status
+          run: |
+            git status
+            git log -1 --pretty=format:"%h - %an, %ar : %s"
+            git diff --name-status HEAD^ HEAD
+
         - name: Set up JDK 17
           uses: actions/setup-java@v3
           with:
