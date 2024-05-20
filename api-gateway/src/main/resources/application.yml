@@ -23,10 +23,10 @@ spring:
           filters:
             - name: AuthenticationFilter
 
-        - id: register-service
-          uri: http://nlb-servicea.resultados-space.svc.cluster.local:8083
-          predicates:
-            - Path=/auth/**
+#        - id: register-service
+#          uri: http://nlb-service.resultados-space.svc.cluster.local:8083
+#          predicates:
+#            - Path=/auth/**
 
 eureka:
   client:
