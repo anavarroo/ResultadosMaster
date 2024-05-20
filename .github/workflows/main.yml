@@ -59,6 +59,17 @@
             docker build -t anavarrooo/resultadosmaster:resultados-service .
             docker push anavarrooo/resultadosmaster:resultados-service
 
+          # Deploy to Kubernetes
+        - name: Configure kubectl
+          uses: azure/k8s-set-context@v1
+          with:
+            kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+        - name: Apply Kubernetes manifests
+          run: |
+            kubectl apply -f microservices.yaml
+            kubectl apply -f microdeployment.yaml
+
         # Build and Push Images to AZURE
       #        - name: Login Azure
       #          run: echo "${{ secrets.AZURE_REPO_PASSWORD }}" | docker login resultadosmasterrepository.azurecr.io -u resultadosmasterrepository --password-stdin
@@ -92,5 +103,6 @@
       #            cd resultados-service
       #            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:resultados-service .
       #            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:resultados-service
+
 
      
