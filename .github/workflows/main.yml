@@ -1,0 +1,112 @@
+  name: Java CI with Maven
+
+  on:
+    push:
+      branches: ['feature-alberto']
+    pull_request:
+      branches: ['feature-alberto']
+
+  jobs:
+    build:
+
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Check out the repository
+          uses: actions/checkout@v4
+
+        - name: Print repository status
+          run: |
+            git log -1
+
+        - name: Set up JDK 17
+          uses: actions/setup-java@v3
+          with:
+            java-version: '17'
+            distribution: 'temurin'
+            cache: maven
+
+        - name: Build and test with Maven
+          run: mvn --batch-mode package
+
+        # Build and Push Images to Docker Hub
+        - name: Log in to Docker Hub
+          run: echo "${{ secrets.DOCKERPASSWORD }}" | docker login -u anavarrooo --password-stdin
+
+        - name: Build and push Docker images for discoveryserver
+          run: |
+            cd discoveryserver
+            docker build -t anavarrooo/resultadosmaster:discoveryserver-v.0.4 .
+            docker push anavarrooo/resultadosmaster:discoveryserver-v.0.4
+
+        - name: Build and push Docker images for api-gateway
+          run: |
+            cd api-gateway
+            docker build -t anavarrooo/resultadosmaster:api-gateway-v.0.4 .
+            docker push anavarrooo/resultadosmaster:api-gateway-v.0.4
+
+        - name: Build and push Docker images for register-service
+          run: |
+            cd register-service
+            docker build -t anavarrooo/resultadosmaster:register-service-v.0.4 .
+            docker push anavarrooo/resultadosmaster:register-service-v.0.4
+
+        - name: Build and push Docker images for ranking-service
+          run: |
+            cd ranking-service
+            docker build -t anavarrooo/resultadosmaster:ranking-service-v.0.4 .
+            docker push anavarrooo/resultadosmaster:ranking-service-v.0.4
+
+        - name: Build and push Docker images for resultados-service
+          run: |
+            cd resultados-service
+            docker build -t anavarrooo/resultadosmaster:resultados-service-v.0.4 .
+            docker push anavarrooo/resultadosmaster:resultados-service-v.0.4
+
+          # Deploy to Kubernetes
+        - name: Configure kubectl
+          uses: azure/k8s-set-context@v1
+          with:
+            kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+        - name: Apply Kubernetes manifests
+          run: |
+            kubectl apply -f microdeployment.yaml -n resultados-space
+            kubectl apply -f microservices.yaml -n resultados-space
+
+        # Build and Push Images to AZURE
+      #        - name: Login Azure
+      #          run: echo "${{ secrets.AZURE_REPO_PASSWORD }}" | docker login resultadosmasterrepository.azurecr.io -u resultadosmasterrepository --password-stdin
+      #
+      #        - name: Build and push Docker images for discoveryserver to azure
+      #          run: |
+      #            cd discoveryserver
+      #            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:discoveryserver .
+      #            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:discoveryserver
+      #
+      #        - name: Build and push Docker images for api-gateway to azure
+      #          run: |
+      #            cd api-gateway
+      #            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:api-gateway .
+      #            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:api-gateway
+      #
+      #        - name: Build and push Docker images for ranking-service to azure
+      #          run: |
+      #            cd ranking-service
+      #            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:ranking-service .
+      #            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:ranking-service
+      #
+      #        - name: Build and push Docker images for register-service to azure
+      #          run: |
+      #            cd register-service
+      #            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:register-service .
+      #            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:register-service
+      #
+      #        - name: Build and push Docker images for resultados-service to azure
+      #          run: |
+      #            cd resultados-service
+      #            docker build -t resultadosmasterrepository.azurecr.io/resultadosmaster:resultados-service .
+      #            docker push resultadosmasterrepository.azurecr.io/resultadosmaster:resultados-service
+
+
+     
