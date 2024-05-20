@@ -1,0 +1,34 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: ranking-servicea
+          uri: http://nlb-service.resultados-space.svc.cluster.local:8081
+          predicates:
+            - Path=/api/v1/ranking/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: resultados-servicea
+          uri: http://nlb-service.resultados-space.svc.cluster.local:8082
+          predicates:
+            - Path=/api/v1/partidos/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: resultados-servicea
+          uri: http://nlb-service.resultados-space.svc.cluster.local:8082
+          predicates:
+            - Path=/api/v1/torneos/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: register-servicea
+          uri: http://nlb-service.resultados-space.svc.cluster.local:8083
+          predicates:
+            - Path=/auth/**
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone : http://discoveryclient:8761/eureka/
