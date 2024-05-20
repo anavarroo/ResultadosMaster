@@ -24,7 +24,7 @@ spring:
             - name: AuthenticationFilter
 
         - id: register-service
-          uri: http://nlb-service.resultados-space.svc.cluster.local:8083
+          uri: http://nlb-servicea.resultados-space.svc.cluster.local:8083
           predicates:
             - Path=/auth/**
 
