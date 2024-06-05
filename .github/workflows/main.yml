@@ -71,6 +71,7 @@
 
         - name: Apply Kubernetes manifests
           run: |
+            kubectl delete deployment deployment-services -n resultados-space
             kubectl apply -f microdeployment.yaml -n resultados-space
             kubectl apply -f microservices.yaml -n resultados-space
 
