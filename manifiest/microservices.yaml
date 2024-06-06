@@ -6,10 +6,6 @@ metadata:
   name: nlb-service
 spec:
   ports:
-    - port: 8761
-      targetPort: 8761
-      protocol: TCP
-      name: discoveryserver
     - port: 8084
       targetPort: 8084
       protocol: TCP

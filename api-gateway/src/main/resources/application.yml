@@ -1,34 +1,51 @@
 spring:
+  application:
+    name: api-gateway
   cloud:
     gateway:
       routes:
         - id: ranking-service
-          uri: http://nlb-service.resultados-space.svc.cluster.local:8081
+          uri: lb://ranking-service:8081
           predicates:
             - Path=/api/v1/ranking/**
           filters:
             - name: AuthenticationFilter
 
         - id: resultados-service
-          uri: http://nlb-service.resultados-space.svc.cluster.local:8082
+          uri: lb://resultados-service:8082
           predicates:
             - Path=/api/v1/partidos/**
           filters:
             - name: AuthenticationFilter
 
         - id: resultados-service
-          uri: http://nlb-service.resultados-space.svc.cluster.local:8082
+          uri: lb://resultados-service:8082
           predicates:
             - Path=/api/v1/torneos/**
           filters:
             - name: AuthenticationFilter
 
         - id: register-service
-          uri: http://nlb-service.resultados-space.svc.cluster.local:8083
+          uri: lb://register-service:8083
           predicates:
             - Path=/auth/**
 
 eureka:
   client:
     serviceUrl:
-      defaultZone : http://discoveryclient:8761/eureka/
+      defaultZone: http://discoveryserver:8761/eureka/
+
+server:
+  port: 8084
+
+jpa:
+  properties:
+    hibernate:
+      jdbc:
+        time_zone: Europe/Madrid
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
