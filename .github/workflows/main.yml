@@ -63,7 +63,7 @@
             docker build -t anavarrooo/resultadosmaster:resultados-service-v.0.7 .
             docker push anavarrooo/resultadosmaster:resultados-service-v.0.7
 
-          # Deploy to Kubernetes
+          # Deploy to Kubernetess
         - name: Configure kubectl
           uses: azure/k8s-set-context@v1
           with:
