@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: anavarrooo/resultadosmaster:api-gateway-v.0.6
+          image: anavarrooo/resultadosmaster:api-gateway-v.0.7
           ports:
             - containerPort: 8084
           env:
@@ -25,7 +25,7 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
         - name: register-service
-          image: anavarrooo/resultadosmaster:register-service-v.0.6
+          image: anavarrooo/resultadosmaster:register-service-v.0.7
           ports:
             - containerPort: 8083
           env:
@@ -40,7 +40,7 @@ spec:
             - name: DATABASE_PASSWORD
               value: Tolito1234
         - name: ranking-service
-          image: anavarrooo/resultadosmaster:ranking-service-v.0.6
+          image: anavarrooo/resultadosmaster:ranking-service-v.0.7
           ports:
             - containerPort: 8081
           env:
@@ -55,7 +55,7 @@ spec:
             - name: DATABASE_PASSWORD
               value: Tolito1234
         - name: resultados-service
-          image: anavarrooo/resultadosmaster:resultados-service-v.0.6
+          image: anavarrooo/resultadosmaster:resultados-service-v.0.7
           ports:
             - containerPort: 8082
           env:
