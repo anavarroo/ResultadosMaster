@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: discoveryserver
-          image: anavarrooo/resultadosmaster:discoveryserver-v.0.5
+          image: anavarrooo/resultadosmaster:discoveryserver-v.0.6
           ports:
             - containerPort: 8761
           env:

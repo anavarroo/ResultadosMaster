@@ -1,5 +1,3 @@
-# Hacer publicos los servicios desplegados
-
 apiVersion: v1
 kind: Service
 metadata:
