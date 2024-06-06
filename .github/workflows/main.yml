@@ -29,41 +29,41 @@
         - name: Build and test with Maven
           run: mvn --batch-mode package
 
-        # Build and Push Images to Docker Hub
+        # Build and Push Images to Docker Hubb
         - name: Log in to Docker Hub
           run: echo "${{ secrets.DOCKERPASSWORD }}" | docker login -u anavarrooo --password-stdin
 
         - name: Build and push Docker images for discoveryserver
           run: |
             cd discoveryserver
-            docker build -t anavarrooo/resultadosmaster:discoveryserver-v.0.4 .
-            docker push anavarrooo/resultadosmaster:discoveryserver-v.0.4
+            docker build -t anavarrooo/resultadosmaster:discoveryserver-v.0.7 .
+            docker push anavarrooo/resultadosmaster:discoveryserver-v.0.7
 
         - name: Build and push Docker images for api-gateway
           run: |
             cd api-gateway
-            docker build -t anavarrooo/resultadosmaster:api-gateway-v.0.4 .
-            docker push anavarrooo/resultadosmaster:api-gateway-v.0.4
+            docker build -t anavarrooo/resultadosmaster:api-gateway-v.0.7 .
+            docker push anavarrooo/resultadosmaster:api-gateway-v.0.7
 
         - name: Build and push Docker images for register-service
           run: |
             cd register-service
-            docker build -t anavarrooo/resultadosmaster:register-service-v.0.4 .
-            docker push anavarrooo/resultadosmaster:register-service-v.0.4
+            docker build -t anavarrooo/resultadosmaster:register-service-v.0.7 .
+            docker push anavarrooo/resultadosmaster:register-service-v.0.7
 
         - name: Build and push Docker images for ranking-service
           run: |
             cd ranking-service
-            docker build -t anavarrooo/resultadosmaster:ranking-service-v.0.4 .
-            docker push anavarrooo/resultadosmaster:ranking-service-v.0.4
+            docker build -t anavarrooo/resultadosmaster:ranking-service-v.0.7 .
+            docker push anavarrooo/resultadosmaster:ranking-service-v.0.7
 
         - name: Build and push Docker images for resultados-service
           run: |
             cd resultados-service
-            docker build -t anavarrooo/resultadosmaster:resultados-service-v.0.4 .
-            docker push anavarrooo/resultadosmaster:resultados-service-v.0.4
+            docker build -t anavarrooo/resultadosmaster:resultados-service-v.0.7 .
+            docker push anavarrooo/resultadosmaster:resultados-service-v.0.7
 
-          # Deploy to Kubernetes
+          # Deploy to Kubernetess
         - name: Configure kubectl
           uses: azure/k8s-set-context@v1
           with:
@@ -71,8 +71,10 @@
 
         - name: Apply Kubernetes manifests
           run: |
-            kubectl apply -f microdeployment.yaml -n resultados-space
-            kubectl apply -f microservices.yaml -n resultados-space
+            kubectl apply -f manifiest/eureka-deployment.yaml -n resultados-space
+            kubectl apply -f manifiest/eureka-service.yaml -n resultados-space
+            kubectl apply -f manifiest/microdeployment.yaml -n resultados-space
+            kubectl apply -f manifiest/microservices.yaml -n resultados-space
 
     
 

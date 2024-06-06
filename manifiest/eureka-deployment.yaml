@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discoveryserver
+  labels:
+    app: discoveryserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discoveryserver
+  template:
+    metadata:
+      labels:
+        app: discoveryserver
+    spec:
+      containers:
+        - name: discoveryserver
+          image: anavarrooo/resultadosmaster:discoveryserver-v.0.7
+          ports:
+            - containerPort: 8761
+          env:
+            - name: AUDIT_API
+              value: http://discoveryserver:8761
+            - name: SPRING_PROFILES_ACTIVE
+              value: docker
